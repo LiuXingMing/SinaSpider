@@ -9,7 +9,9 @@ DOWNLOADER_MIDDLEWARES = {
     "Sina_spider1.middleware.CookiesMiddleware": 402,
 }
 
-ITEM_PIPELINES = ["Sina_spider1.pipelines.MongoDBPipleline"]
+ITEM_PIPELINES = {
+    'Sina_spider1.pipelines.MongoDBPipleline': 300,
+}
 
 DOWNLOAD_DELAY = 2  # 间隔时间
 # CONCURRENT_ITEMS = 1000
