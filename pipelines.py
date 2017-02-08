@@ -1,6 +1,6 @@
 # encoding=utf-8
 
-# ------------------------------------------
+# __________________________________________
 #   增加了向Mysql数据库中保存pipeline
 #   需要有MysqlDB,同时修改Spider文件，增加Item类所有变量的if else的返回值，使得可以标准化存储       
 #   Updated by Charles Yan
@@ -12,7 +12,7 @@ import pymongo
 from items import InformationItem, TweetsItem, RelationshipsItem
 import MySQLdb
 
-class MysqlDBPipeline(object):
+class MysqlDBPipleline(object):
     def __init__(self):
         self.count = 1
         self.conn = MySQLdb.connect(
@@ -57,18 +57,19 @@ class MysqlDBPipeline(object):
                 sql+=str('INSERT INTO SinaWeibo.Tweets (`weibo_id`,`User_id`,`Content`,`Pubtime`,`Coordinates`,`Tools`,`Likes`,`Comments`,`Transfers`) ')
                 sql+=str(' Values(\'' )
                 sql+=str(item['_id'])
-                
+           
                 sql+=str('\', \'')
                 sql+=str(item['ID'])
                 sql+=str('\', \'')
                 sql+=str(item['Content'])
                 sql+=str('\', \'')
                 sql+=str(item['PubTime'])
-                
+               
                 sql+=str('\', \'')
+               
                 sql+=str(item['Co_oridinates'])
+               
                 sql+=str('\', \'')
-                
                 sql+=str(item['Tools'])
                 print(sql)
                 sql+=str('\', \'')
@@ -95,7 +96,7 @@ class MysqlDBPipeline(object):
                 sql+=str('INSERT INTO SinaWeibo.Information (`User_id`,`NickName`,`Gender`,`Province`,`City`,`BriefIntroduction`,`Birthday`,`Num_Tweets`,`Num_Follows`,`Num_Fans`,`SexOrientation`,`Sentiment`,`VIPlevel`,`Authentication`,`URL`) ')
                 sql+=str(' Values(\'' )
                 sql+=str(item['_id'])
-                
+               
                 sql+=str('\', \'')
                 sql+=str(item['NickName'])
                 sql+=str('\', \'')
@@ -112,7 +113,7 @@ class MysqlDBPipeline(object):
                 sql+=str(item['Birthday'])
                 sql+=str('\', \'')
                 sql+=str(item['Num_Tweets'])
-                
+               
                 sql+=str('\', \'')
                 sql+=str(item['Num_Follows'])
                 sql+=str('\', \'')
@@ -130,7 +131,7 @@ class MysqlDBPipeline(object):
                 sql+=str('\', \'')
                 sql+=str(item['URL'])
                 sql+=str('\')')
-                
+               
                 print("*********** SQL SYNTAX *********** ")
                 print(''.join(sql))
                 self.cur.execute(sql)
@@ -162,7 +163,7 @@ class MysqlDBPipeline(object):
     
 
 
-class MongoDBPipeline(object):
+class MongoDBPipleline(object):
     def __init__(self):
         clinet = pymongo.MongoClient("localhost", 27017)
         db = clinet["Sina"]

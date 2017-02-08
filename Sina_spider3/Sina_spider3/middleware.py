@@ -55,7 +55,7 @@ class CookiesMiddleware(RetryMiddleware):
         if response.status in [300, 301, 302, 303]:
             try:
                 redirect_url = response.headers["location"]
-                if "login.weibo" in redirect_url or "login.sina" in redirect_url::  # Cookie失效
+                if "login.weibo" in redirect_url or "login.sina" in redirect_url:  # Cookie失效
                     logger.warning("One Cookie need to be updating...")
                     updateCookie(request.meta['accountText'], self.rconn, spider.name)
                 elif "weibo.cn/security" in redirect_url:  # 账号被限

@@ -15,7 +15,7 @@ DOWNLOADER_MIDDLEWARES = {
     "Sina_spider3.middleware.CookiesMiddleware": 402,
 }
 ITEM_PIPELINES = {
-    "Sina_spider3.pipelines.MongoDBPipleline": 403,
+    "Sina_spider3.pipelines.MongoDBPipeline": 403,
 }
 
 SCHEDULER = 'Sina_spider3.scrapy_redis.scheduler.Scheduler'

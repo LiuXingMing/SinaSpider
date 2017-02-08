@@ -19,7 +19,7 @@ class Spider(CrawlSpider):
     finish_ID = set()  # 记录已爬的微博ID
 
     def start_requests(self):
-        while True:
+        while self.scrawl_ID.__len__():
             ID = self.scrawl_ID.pop()
             self.finish_ID.add(ID)  # 加入已爬队列
             ID = str(ID)
