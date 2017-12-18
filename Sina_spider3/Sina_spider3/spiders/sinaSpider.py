@@ -23,14 +23,14 @@ sys.setdefaultencoding('utf8')
 
 class Spider(RedisSpider):
     name = "SinaSpider"
-    host = "http://weibo.cn"
+    host = "https://weibo.cn"
     redis_key = "SinaSpider:start_urls"
     start_urls = list(set(weiboID))
     logging.getLogger("requests").setLevel(logging.WARNING)  # 将requests的日志级别设成WARNING
 
     def start_requests(self):
         for uid in self.start_urls:
-            yield Request(url="http://weibo.cn/%s/info" % uid, callback=self.parse_information)
+            yield Request(url="https://weibo.cn/%s/info" % uid, callback=self.parse_information)
 
     def parse_information(self, response):
         """ 抓取个人信息 """
@@ -83,7 +83,7 @@ class Spider(RedisSpider):
                 informationItem["URL"] = url[0]
 
             try:
-                urlothers = "http://weibo.cn/attgroup/opening?uid=%s" % ID
+                urlothers = "https://weibo.cn/attgroup/opening?uid=%s" % ID
                 r = requests.get(urlothers, cookies=response.request.cookies, timeout=5)
                 if r.status_code == 200:
                     selector = etree.HTML(r.content)
@@ -104,9 +104,9 @@ class Spider(RedisSpider):
             pass
         else:
             yield informationItem
-        yield Request(url="http://weibo.cn/%s/profile?filter=1&page=1" % ID, callback=self.parse_tweets, dont_filter=True)
-        yield Request(url="http://weibo.cn/%s/follow" % ID, callback=self.parse_relationship, dont_filter=True)
-        yield Request(url="http://weibo.cn/%s/fans" % ID, callback=self.parse_relationship, dont_filter=True)
+        yield Request(url="https://weibo.cn/%s/profile?filter=1&page=1" % ID, callback=self.parse_tweets, dont_filter=True)
+        yield Request(url="https://weibo.cn/%s/follow" % ID, callback=self.parse_relationship, dont_filter=True)
+        yield Request(url="https://weibo.cn/%s/fans" % ID, callback=self.parse_relationship, dont_filter=True)
 
     def parse_tweets(self, response):
         """ 抓取微博数据 """
@@ -167,7 +167,7 @@ class Spider(RedisSpider):
             relationshipsItem["Host1"] = ID if flag else uid
             relationshipsItem["Host2"] = uid if flag else ID
             yield relationshipsItem
-            yield Request(url="http://weibo.cn/%s/info" % uid, callback=self.parse_information)
+            yield Request(url="https://weibo.cn/%s/info" % uid, callback=self.parse_information)
 
         next_url = selector.xpath('//a[text()="下页"]/@href'.decode('utf8')).extract()
         if next_url:

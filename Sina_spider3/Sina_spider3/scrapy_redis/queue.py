@@ -106,7 +106,7 @@ class SpiderSimpleQueue(Base):
 
     def push(self, request):
         """Push a request"""
-        self.server.lpush(self.key, request.url[15:])
+        self.server.lpush(self.key, request.url[16:])
 
     def pop(self, timeout=0):
         """Pop a request"""
@@ -126,7 +126,7 @@ class SpiderSimpleQueue(Base):
                     cb = getattr(self.spider, "parse_information")
                 else:
                     raise ValueError("Method not found in: %s( URL:%s )" % (self.spider, url))
-                return Request(url="http://weibo.cn%s" % url, callback=cb)
+                return Request(url="https://weibo.cn%s" % url, callback=cb)
             except AttributeError:
                 raise ValueError("Method not found in: %s( URL:%s )" % (self.spider, url))
 
